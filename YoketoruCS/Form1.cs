@@ -8,6 +8,17 @@ namespace YoketoruCS
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
 
+        static int PlayerMax => 1;
+        static int EnemyMax => 4;
+        static int ItemMax => 4;
+
+        static int PlayerIndex => 0;
+        static int EnemyIndex => PlayerIndex + PlayerMax;
+        static int ItemIndex => EnemyIndex + EnemyMax;
+        static int LabelMax => ItemIndex + ItemMax;
+
+        Label[] labels = new Label[LabelMax];
+
         enum State
         {
             None = -1,
@@ -30,6 +41,25 @@ namespace YoketoruCS
         public Form1()
         {
             InitializeComponent();
+
+            for (int i=0;i<LabelMax;i++)
+            {
+                labels[i] = new Label();
+                labels[i].AutoSize = true;
+                Controls.Add(labels[i]);
+
+                // Text, Font, ForeColorを、種類ごとに設定したい!!
+
+                // プレイヤーのとき
+                // iが???のとき
+
+                // 敵のとき
+                // iが???のとき
+
+                // アイテムのとき
+                // iが???のとき
+
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
