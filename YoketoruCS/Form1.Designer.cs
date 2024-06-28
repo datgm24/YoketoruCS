@@ -34,6 +34,7 @@
             buttonStart = new Button();
             labelGameover = new Label();
             buttonToTitle = new Button();
+            labelClear = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -84,11 +85,22 @@
             buttonToTitle.UseVisualStyleBackColor = true;
             buttonToTitle.Click += buttonToTitle_Click;
             // 
+            // labelClear
+            // 
+            labelClear.AutoSize = true;
+            labelClear.Font = new Font("源ノ角ゴシック Code JP H", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            labelClear.Location = new Point(149, 63);
+            labelClear.Name = "labelClear";
+            labelClear.Size = new Size(167, 46);
+            labelClear.TabIndex = 4;
+            labelClear.Text = "CLEAR!!";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 281);
+            Controls.Add(labelClear);
             Controls.Add(buttonToTitle);
             Controls.Add(buttonStart);
             Controls.Add(labelGameover);
@@ -106,5 +118,6 @@
         private Button buttonStart;
         private Label labelGameover;
         private Button buttonToTitle;
+        private Label labelClear;
     }
 }
