@@ -19,6 +19,13 @@ namespace YoketoruCS
 
         Label[] labels = new Label[LabelMax];
 
+        static Random random = new Random();
+
+        int[] vx = new int[LabelMax];
+        int[] vy = new int[LabelMax];
+
+        static int SpeedMax => 10;
+
         enum State
         {
             None = -1,
@@ -120,6 +127,8 @@ namespace YoketoruCS
                     for (int i=0;i<LabelMax;i++)
                     {
                         labels[i].Visible = true;
+                        vx[i] = random.Next(-SpeedMax, SpeedMax + 1);
+                        vy[i] = random.Next(-SpeedMax, SpeedMax + 1);
                     }
                     break;
 
@@ -159,8 +168,39 @@ namespace YoketoruCS
 
             // プレイヤーの移動
             var fpos = PointToClient(MousePosition);
-            labels[PlayerIndex].Left = fpos.X;
-            labels[PlayerIndex].Top = fpos.Y;
+            labels[PlayerIndex].Left = fpos.X - labels[PlayerIndex].Width / 2;
+            labels[PlayerIndex].Top = fpos.Y - labels[PlayerIndex].Height / 2;
+
+            // キャラクターの更新
+            UpdateChrs();
+        }
+
+        void UpdateChrs()
+        {
+            // 敵とアイテムの移動と跳ね返り処理
+            for (int i = EnemyIndex; i < LabelMax; i++)
+            {
+                labels[i].Left += vx[i];
+                labels[i].Top += vy[i];
+
+                if (labels[i].Left < 0)
+                {
+                    vx[i] = Math.Abs(vx[i]);
+                }
+                else if (labels[i].Left > (ClientSize.Width - labels[i].Width))
+                {
+                    vx[i] = -Math.Abs(vx[i]);
+                }
+
+                if (labels[i].Top < 0)
+                {
+                    vy[i] = Math.Abs(vy[i]);
+                }
+                else if (labels[i].Top > (ClientSize.Height - labels[i].Height))
+                {
+                    vy[i] = -Math.Abs(vy[i]);
+                }
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
