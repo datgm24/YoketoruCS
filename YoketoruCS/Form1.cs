@@ -229,6 +229,12 @@ namespace YoketoruCS
                     {
                         nextState = State.Gameover;
                     }
+                    else
+                    {
+                        // ƒAƒCƒeƒ€
+                        score += timer * 100;
+                        labelScore.Text = $"{score}";
+                    }
                 }
             }
         }
