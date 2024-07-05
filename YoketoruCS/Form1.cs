@@ -42,23 +42,48 @@ namespace YoketoruCS
         {
             InitializeComponent();
 
-            for (int i=0;i<LabelMax;i++)
+            for (int i = 0; i < LabelMax; i++)
             {
                 labels[i] = new Label();
                 labels[i].AutoSize = true;
+                labels[i].Visible = false;
                 Controls.Add(labels[i]);
+
+                tempPlayer.Visible = false;
+                tempEnemy.Visible = false;
+                tempItem.Visible = false;
 
                 // Text, Font, ForeColorを、種類ごとに設定したい!!
 
-                // プレイヤーのとき
-                // iが???のとき
-
-                // 敵のとき
-                // iが???のとき
-
                 // アイテムのとき
                 // iが???のとき
+                if (i >= ItemIndex)
+                {
+                    labels[i].Font = tempItem.Font;
+                    labels[i].ForeColor = tempItem.ForeColor;
+                    labels[i].Text = tempItem.Text;
+                }
+                else if (i >= EnemyIndex)
+                {
+                    // 敵のとき
+                    // iが???のとき
+                    labels[i].Font = tempEnemy.Font;
+                    labels[i].ForeColor = tempEnemy.ForeColor;
+                    labels[i].Text = tempEnemy.Text;
+                }
+                else
+                {
+                    // プレイヤーのとき
+                    // iが???のとき
+                    labels[i].Font = tempPlayer.Font;
+                    labels[i].ForeColor = tempPlayer.ForeColor;
+                    labels[i].Text = tempPlayer.Text;
+                }
 
+                if (i >= EnemyIndex)
+                {
+                    labels[i].Left = labels[i-1].Left + labels[i-1].Width;
+                }
             }
         }
 
@@ -92,6 +117,10 @@ namespace YoketoruCS
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
+                    for (int i=0;i<LabelMax;i++)
+                    {
+                        labels[i].Visible = true;
+                    }
                     break;
 
                 case State.Gameover:
@@ -127,6 +156,11 @@ namespace YoketoruCS
             {
                 nextState = State.Clear;
             }
+
+            // プレイヤーの移動
+            var fpos = PointToClient(MousePosition);
+            labels[PlayerIndex].Left = fpos.X;
+            labels[PlayerIndex].Top = fpos.Y;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

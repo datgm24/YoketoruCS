@@ -39,7 +39,7 @@
             labelTime = new Label();
             tempPlayer = new Label();
             tempItem = new Label();
-            label3 = new Label();
+            tempEnemy = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -141,23 +141,23 @@
             tempItem.TabIndex = 8;
             tempItem.Text = "★";
             // 
-            // label3
+            // tempEnemy
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("源ノ角ゴシック Code JP H", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.ForeColor = Color.Purple;
-            label3.Location = new Point(218, 226);
-            label3.Name = "label3";
-            label3.Size = new Size(26, 23);
-            label3.TabIndex = 9;
-            label3.Text = "◆";
+            tempEnemy.AutoSize = true;
+            tempEnemy.Font = new Font("源ノ角ゴシック Code JP H", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            tempEnemy.ForeColor = Color.Purple;
+            tempEnemy.Location = new Point(218, 226);
+            tempEnemy.Name = "tempEnemy";
+            tempEnemy.Size = new Size(26, 23);
+            tempEnemy.TabIndex = 9;
+            tempEnemy.Text = "◆";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 281);
-            Controls.Add(label3);
+            Controls.Add(tempEnemy);
             Controls.Add(tempItem);
             Controls.Add(tempPlayer);
             Controls.Add(labelTime);
@@ -185,6 +185,6 @@
         private Label labelTime;
         private Label tempPlayer;
         private Label tempItem;
-        private Label label3;
+        private Label tempEnemy;
     }
 }
