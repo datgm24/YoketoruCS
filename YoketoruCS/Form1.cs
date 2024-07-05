@@ -26,6 +26,9 @@ namespace YoketoruCS
 
         static int SpeedMax => 10;
 
+        int score = 0;
+        int timer = 200;
+
         enum State
         {
             None = -1,
@@ -89,7 +92,7 @@ namespace YoketoruCS
 
                 if (i >= EnemyIndex)
                 {
-                    labels[i].Left = labels[i-1].Left + labels[i-1].Width;
+                    labels[i].Left = labels[i - 1].Left + labels[i - 1].Width;
                 }
             }
         }
@@ -124,12 +127,16 @@ namespace YoketoruCS
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
-                    for (int i=0;i<LabelMax;i++)
+                    for (int i = 0; i < LabelMax; i++)
                     {
                         labels[i].Visible = true;
                         vx[i] = random.Next(-SpeedMax, SpeedMax + 1);
                         vy[i] = random.Next(-SpeedMax, SpeedMax + 1);
+                        labels[i].Left = random.Next(0, ClientSize.Width - labels[i].Width);
+                        labels[i].Top = random.Next(0, ClientSize.Height - labels[i].Height);
                     }
+                    score = 0;
+                    timer = 200;
                     break;
 
                 case State.Gameover:
@@ -173,6 +180,14 @@ namespace YoketoruCS
 
             // キャラクターの更新
             UpdateChrs();
+
+            // 時間の更新
+            timer--;
+            labelTime.Text = $"{timer}";
+            if (timer <= 0)
+            {
+                nextState = State.Gameover;
+            }
         }
 
         void UpdateChrs()
