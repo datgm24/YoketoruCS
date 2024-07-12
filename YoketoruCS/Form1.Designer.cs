@@ -40,6 +40,9 @@
             tempPlayer = new Label();
             tempItem = new Label();
             tempEnemy = new Label();
+            labelHighScore = new Label();
+            fileSystemWatcher1 = new FileSystemWatcher();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
             // timer1
@@ -152,11 +155,28 @@
             tempEnemy.TabIndex = 9;
             tempEnemy.Text = "◆";
             // 
+            // labelHighScore
+            // 
+            labelHighScore.AutoSize = true;
+            labelHighScore.Font = new Font("源ノ角ゴシック Code JP H", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            labelHighScore.Location = new Point(155, 41);
+            labelHighScore.Name = "labelHighScore";
+            labelHighScore.Size = new Size(154, 32);
+            labelHighScore.TabIndex = 10;
+            labelHighScore.Text = "ハイスコア:0";
+            labelHighScore.Click += labelHighScore_Click;
+            // 
+            // fileSystemWatcher1
+            // 
+            fileSystemWatcher1.EnableRaisingEvents = true;
+            fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 281);
+            Controls.Add(labelHighScore);
             Controls.Add(tempEnemy);
             Controls.Add(tempItem);
             Controls.Add(tempPlayer);
@@ -169,6 +189,7 @@
             Controls.Add(labelTitle);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -186,5 +207,7 @@
         private Label tempPlayer;
         private Label tempItem;
         private Label tempEnemy;
+        private Label labelHighScore;
+        private FileSystemWatcher fileSystemWatcher1;
     }
 }

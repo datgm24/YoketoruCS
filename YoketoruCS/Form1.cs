@@ -28,6 +28,8 @@ namespace YoketoruCS
 
         int score = 0;
         int timer = 200;
+        int itemCount;
+        int highScore = 100;
 
         enum State
         {
@@ -118,15 +120,24 @@ namespace YoketoruCS
                 case State.Title:
                     labelTitle.Visible = true;
                     buttonStart.Visible = true;
+                    labelHighScore.Visible = true;
 
                     labelGameover.Visible = false;
                     buttonToTitle.Visible = false;
                     labelClear.Visible = false;
+
+                    // ハイスコア判定
+                    if (score > highScore)
+                    {
+                        highScore = score;
+                    }
+                    labelHighScore.Text = $"ハイスコア:{highScore}";
                     break;
 
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
+                    labelHighScore.Visible = false;
                     for (int i = 0; i < LabelMax; i++)
                     {
                         labels[i].Visible = true;
@@ -137,6 +148,7 @@ namespace YoketoruCS
                     }
                     score = 0;
                     timer = 200;
+                    itemCount = ItemMax;
                     break;
 
                 case State.Gameover:
@@ -197,6 +209,12 @@ namespace YoketoruCS
             // 敵とアイテムの移動と跳ね返り処理
             for (int i = EnemyIndex; i < LabelMax; i++)
             {
+                // 非表示のラベルは、処理をキャンセル
+                if (!labels[i].Visible)
+                {
+                    continue;
+                }
+
                 labels[i].Left += vx[i];
                 labels[i].Top += vy[i];
 
@@ -220,9 +238,9 @@ namespace YoketoruCS
 
                 // fposがラベルと重なっているか判定
                 if ((fpos.X > labels[i].Left)
-                    &&(fpos.X < labels[i].Right)
-                    &&(fpos.Y > labels[i].Top)
-                    &&(fpos.Y < labels[i].Bottom))
+                    && (fpos.X < labels[i].Right)
+                    && (fpos.Y > labels[i].Top)
+                    && (fpos.Y < labels[i].Bottom))
                 {
                     // 敵のとき、ゲームオーバー
                     if (i < ItemIndex)
@@ -234,6 +252,14 @@ namespace YoketoruCS
                         // アイテム
                         score += timer * 100;
                         labelScore.Text = $"{score}";
+                        labels[i].Visible = false;
+
+                        // クリア判定
+                        itemCount--;
+                        if (itemCount <= 0)
+                        {
+                            nextState = State.Clear;
+                        }
                     }
                 }
             }
@@ -247,6 +273,11 @@ namespace YoketoruCS
         private void buttonToTitle_Click(object sender, EventArgs e)
         {
             nextState = State.Title;
+        }
+
+        private void labelHighScore_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
